@@ -1,0 +1,2 @@
+#turns all music files pointed to by CUE playlists in child folders into individual FLAC files and tags them
+for i in `ls -d */`; do cd $i; shnsplit -f *.cue -t "%n %t" -o "flac flac -s -8 -o %f -" *.SOURCE; cuetag.sh *.cue *.flac; cd ..; done
