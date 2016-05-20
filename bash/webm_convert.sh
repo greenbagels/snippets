@@ -63,5 +63,6 @@ case "$3" in
     exit 1
 esac
 
-ffmpeg -ss ${4} -i ${1} -t ${5} ${ARGLIST} -crf 10 -b:v ${bitrate} -threads $(nproc) -pass 1 -an -f webm /dev/null
-ffmpeg -ss ${4} -i ${1} -t ${5} ${ARGLIST} -crf 10 -b:v ${bitrate} -threads $(nproc) -pass 2 -c:a libopus -b:a 192k -vbr constrained -compression_level 10 -application audio -f webm ${ofile}
+#WARNING: ffmpeg will *forcibly overwrite* existing files!
+ffmpeg -ss ${4} -y -i ${1} -t ${5} ${ARGLIST} -crf 10 -b:v ${bitrate} -threads $(nproc) -pass 1 -an -f webm /dev/null
+ffmpeg -ss ${4} -y -i ${1} -t ${5} ${ARGLIST} -crf 10 -b:v ${bitrate} -threads $(nproc) -pass 2 -c:a libopus -b:a 192k -vbr constrained -compression_level 10 -application audio -f webm ${ofile}
